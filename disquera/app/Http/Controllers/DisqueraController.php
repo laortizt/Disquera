@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Cancion;
+use App\Models\Disquera;
 use Illuminate\Http\Request;
 
-class CancionController extends Controller
+class DisqueraController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class CancionController extends Controller
      */
     public function index()
     {
-        $registros['cancion']=Cancion::paginate(20);
-        return view('cancion.index', $registros);
+        $registros['disquera']=Disquera::paginate(20);
+        return view('disquera.index', $registros);
     }
 
     /**
@@ -25,7 +25,7 @@ class CancionController extends Controller
      */
     public function create()
     {
-        return view('cancion.create');return view('cancion.create');
+        return view('disquera.create');return view('disquera.create');
     }
 
     /**
@@ -38,37 +38,32 @@ class CancionController extends Controller
     {
         $campos=[
             'nombre'=>'required',
-            'duracion'=>'required',
-            'fechaGrabacion'=>'required|date',
-            'idAlbum'=>'required',
-            'idgenero'=>'required', 'nombre'=>'required',
-            'duracion'=>'required',
-            'fechaGrabacion'=>'required|date',
-            'idAlbum'=>'required',
-            'idgenero'=>'required',
+            'dirección'=>'required',
+            'estado'=>'required|date',
+            'telefono'=>'required',
             
             // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
         $this->validate($request, $campos);
 
-        $datoscancion=request()->except('_token');
+        $datosdisquera=request()->except('_token');
 
         // ver si la foto está llegando
         // if($request->hasFile('photo')){
         //     $datosalbum['photo']=$request->file('photo')->store('uploads', 'public');
         // }
-        Cancion::insert($datoscancion);
+        Disquera::insert($datosdisquera);
         // return response()->json($datoscliente);
-        return redirect('cancion')->with('msn','Canción registrado exitosamente');
+        return redirect('disquera')->with('msn','Disquera registrado exitosamente');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Cancion  $cancion
+     * @param  \App\Models\Disquera  $disquera
      * @return \Illuminate\Http\Response
      */
-    public function show(Cancion $cancion)
+    public function show(Disquera $cancion)
     {
         //
     }
@@ -76,30 +71,29 @@ class CancionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Cancion  $cancion
+     * @param  \App\Models\Disquera  $disquera
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $cancion=Cancion::findOrFail($id);
-        return view('cancion.edit',compact('cancion'));
+        $disquera=Disquera::findOrFail($id);
+        return view('disquera.edit',compact('disquera'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cancion  $cancion
+     * @param  \App\Models\Disquera  $disquera
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request,$id)
     {
         $campos=[
             'nombre'=>'required',
-            'duracion'=>'required',
-            'fechaGrabacion'=>'required|date',
-            'idAlbum'=>'required',
-            'idgenero'=>'required',
+            'dirección'=>'required',
+            'estado'=>'required|date',
+            'telefono'=>'required',
             // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
         //  if($request->hasFile('photo')){
@@ -107,7 +101,7 @@ class CancionController extends Controller
         //  }
          $this->validate($request, $campos);
 
-        $datoscancion=request()->except('_token','_method');
+        $datosdisquera=request()->except('_token','_method');
 
         // if($request->hasFile('photo')){
         //     $cliente=Cliente::findOrFail($id);
@@ -116,20 +110,20 @@ class CancionController extends Controller
         //     // $request->file('photo')->storeAs('public/uploads', $datoscliente['photo']);
         // }
 
-        Cancion::where('id','=',$id)->update($datoscancion);
-        return redirect('cancion')->with('msn','Album actualizado exitosamente');
+        Disquera::where('id','=',$id)->update($datosdisquera);
+        return redirect('disquera')->with('msn','Disquera actualizada exitosamente');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Cancion  $cancion
+     * @param  \App\Models\Disquera  $disquera
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Cancion::destroy($id);
-        return redirect('cancion')->with('msn','Canción eliminada exitosamente');
+        Disquera::destroy($id);
+        return redirect('disquera')->with('msn','Disquera eliminada exitosamente');
 
     }
 }

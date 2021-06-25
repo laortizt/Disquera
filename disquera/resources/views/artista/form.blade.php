@@ -1,6 +1,7 @@
 
 <div class="mb-3">
-    <label for="nombre" class="form-label">Nombre/label>
+
+    <label for="nombre" class="form-label">Nombre</label>
     <input type="text" name="nombre" id="nombre" class="form-control" value="{{isset($artista->nombre)?$artista->nombre:old('nombre')}}"aria-describedby="nombrehelp" required alpha  minlength="5">
 
     @error('nombre')
@@ -84,8 +85,8 @@
     </div>
 
 </div>
-<label for="iddisquera" class="form-label">Disquera</label>
-    <input type="text" name="iddisquera" id="iddisquera" class="form-control" value="{{isset($artista->iddisquera)?$artista->iddisquera:old('idartista')}}"aria-describedby="iddisquerahelp" required >
+<label for="iddisqueraFK" class="form-label">Disquera</label>
+    <input type="text" name="iddisqueraFK" id="iddisqueraFK" class="form-control" value="{{isset($artista->iddisqueraFK)?$artista->iddisqueraFK:old('idartista')}}"aria-describedby="iddisquerahelp" required >
 
     @error('idartista')
         <small id="iddisquerahelp" class="form-text text-muted">
@@ -134,17 +135,16 @@
 </div>
 
 
-<!-- 
 <div class="mb-3">
-    <label for="photo" class="form-label">Ingrese una foto</label>
-    <input type="file" name="photo" id="photo" class="form-control" value="{{isset($album->photo)?$album->photo:old('photo')}}"aria-describedby="photohelp" required mimes:jpg,jpeg,png>
+    <label for="foto" class="form-label">Ingrese una foto</label>
+    <input type="file" name="foto" id="foto" class="form-control" value="{{isset($artista->foto)?$artista->foto:old('foto')}}"aria-describedby="fotohelp" required mimes:jpg,jpeg,png>
     @error('foto')
-        <small id="photohelp" class="form-text text-muted">
+        <small id="fotohelp" class="form-text text-muted">
             *{{$message}}
         </small>
     @enderror
     
-</div> -->
+</div>
 
 <!-- <div class="mb-3">
     <label for="accept_terms" class="form-check-label">Aceptar téminos y condiciones</label>

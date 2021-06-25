@@ -14,7 +14,8 @@ class GeneroController extends Controller
      */
     public function index()
     {
-        //
+        $registros['genero']=Genero::paginate(20);
+        return view('genero.index', $registros);
     }
 
     /**
@@ -24,7 +25,7 @@ class GeneroController extends Controller
      */
     public function create()
     {
-        //
+        return view('genero.create');
     }
 
     /**
@@ -35,7 +36,21 @@ class GeneroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $campos=[
+            'estado'=>'required',
+            'nombre'=>'required|string|max:100',
+        ];
+        $this->validate($request, $campos);
+
+        $datosgenero=request()->except('_token');
+
+        // ver si la foto está llegando
+        // if($request->hasFile('photo')){
+        //     $datosgenero['photo']=$request->file('photo')->store('uploads', 'public');
+        // }
+        Genero::insert($datosgenero);
+        // return response()->json($datoscliente);
+        return redirect('genero')->with('msn','Genero registrado exitosamente');
     }
 
     /**
@@ -55,9 +70,10 @@ class GeneroController extends Controller
      * @param  \App\Models\Genero  $genero
      * @return \Illuminate\Http\Response
      */
-    public function edit(Genero $genero)
+    public function edit($id)
     {
-        //
+        $genero=Genero::findOrFail($id);
+        return view('genero.edit',compact('genero'));
     }
 
     /**
@@ -67,9 +83,28 @@ class GeneroController extends Controller
      * @param  \App\Models\Genero  $genero
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Genero $genero)
+    public function update(Request $request,$id)
     {
-        //
+        $campos=[
+            'estado'=>'required',
+            'nombre'=>'required|string|max:100',
+        ];
+        //  if($request->hasFile('photo')){
+        //     $campos=['photo'=>'required|string|max:500|mimes:jpg, jpeg,png',];
+        //  }
+         $this->validate($request, $campos);
+
+        $datosgenero=request()->except('_token','_method');
+
+        // if($request->hasFile('photo')){
+        //     $cliente=Cliente::findOrFail($id);
+        //     Storage::delete('public/'.$cliente->photo);
+        //     $datoscliente['photo']=$request->file('photo')->store('uploads', 'public');
+        //     // $request->file('photo')->storeAs('public/uploads', $datoscliente['photo']);
+        // }
+
+        Genero::where('id','=',$id)->update($datosgenero);
+        return redirect('genero')->with('msn','Genero actualizado exitosamente');
     }
 
     /**
@@ -78,8 +113,9 @@ class GeneroController extends Controller
      * @param  \App\Models\Genero  $genero
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Genero $genero)
+    public function destroy($id)
     {
-        //
+        Genero::destroy($id);
+        return redirect('genero')->with('msn','Genero eliminado exitosamente');
     }
 }

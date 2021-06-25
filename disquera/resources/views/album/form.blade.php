@@ -33,8 +33,8 @@
     </div>
 
 </div>
-<label for="idartista" class="form-label">Artista</label>
-    <input type="text" name="idartista" id="idartista" class="form-control" value="{{isset($album->idartista)?$album->idartista:old('idartista')}}"aria-describedby="idartistahelp" required >
+<label for="idartistaFK" class="form-label">Artista</label>
+    <input type="text" name="idartistaFK" id="idartistaFK" class="form-control" value="{{isset($album->idartistaFK)?$album->idartistaFK:old('idartistaFK')}}"aria-describedby="idartistahelp" required >
 
     @error('idartista')
         <small id="idartistahelp" class="form-text text-muted">
@@ -49,8 +49,8 @@
     </div>
 
 <div class="mb-3">
-    <label for="idgenero" class="form-label">Género</label>
-    <input type="text" name="idgenero" id="idgenero" class="form-control" value="{{isset($album->idgenero)?$album->idgenero:old('idgenero')}}"aria-describedby="idgenerohelp" required minlength="5" >
+    <label for="idgeneroFK" class="form-label">Género</label>
+    <input type="text" name="idgeneroFK" id="idgeneroFK" class="form-control" value="{{isset($album->idgeneroFK)?$album->idgeneroFK:old('idgeneroFK')}}"aria-describedby="idgenerohelp" required minlength="5" >
     @error('idgenero')
         <small id="idgenerohelp" class="form-text text-muted">
             *{{$message}}
@@ -78,24 +78,19 @@
        *El campo es obligatorio minimo 5 letras
     </div>
 </div>
-<!-- 
+
 <div class="mb-3">
-    <label for="photo" class="form-label">Ingrese una foto</label>
-    <input type="file" name="photo" id="photo" class="form-control" value="{{isset($album->photo)?$album->photo:old('photo')}}"aria-describedby="photohelp" required mimes:jpg,jpeg,png>
+    <label for="foto" class="form-label">Ingrese una foto</label>
+    <input type="file" name="foto" id="foto" class="form-control" value="{{isset($album->foto)?$album->foto:old('foto')}}"aria-describedby="fotohelp" required mimes:jpg,jpeg,png>
     @error('foto')
-        <small id="photohelp" class="form-text text-muted">
+        <small id="fotohelp" class="form-text text-muted">
             *{{$message}}
         </small>
     @enderror
     
-</div> -->
+</div> 
 
-<!-- <div class="mb-3">
-    <label for="accept_terms" class="form-check-label">Aceptar téminos y condiciones</label>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="accept_terms" name="accept_terms">
-    </div>
-</div> -->
+
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <input type="submit" value="Guardar" class="btn btn-primary">

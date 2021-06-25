@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Artista;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ArtistaController extends Controller
 {
@@ -45,19 +46,19 @@ class ArtistaController extends Controller
             'iddisquera'=>'required',
             'nombreArtistico'=>'required',
             'tipoDocumento'=>'required',
-
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
+            'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
+          
         ];
         $this->validate($request, $campos);
 
         $datosartista=request()->except('_token');
 
-        // ver si la foto está llegando
-        // if($request->hasFile('photo')){
-        //     $datosalbum['photo']=$request->file('photo')->store('uploads', 'public');
-        // }
+        
+        if($request->hasFile('foto')){
+            $datosartista['foto']=$request->file('foto')->store('uploads', 'public');
+        }
         Artista::insert($datosartista);
-        // return response()->json($datoscliente);
+        return response()->json($datosartista);
         return redirect('artista')->with('msn','Artista registrado exitosamente');
     }
 
@@ -102,21 +103,21 @@ class ArtistaController extends Controller
             'iddisquera'=>'required',
             'nombreArtistico'=>'required',
             'tipoDocumento'=>'required',
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
+            'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
-        //  if($request->hasFile('photo')){
-        //     $campos=['photo'=>'required|string|max:500|mimes:jpg, jpeg,png',];
-        //  }
+         if($request->hasFile('foto')){
+            $campos=['photo'=>'required|string|max:500|mimes:jpg, jpeg,png',];
+         }
          $this->validate($request, $campos);
 
         $datosartista=request()->except('_token','_method');
 
-        // if($request->hasFile('photo')){
-        //     $cliente=Cliente::findOrFail($id);
-        //     Storage::delete('public/'.$cliente->photo);
-        //     $datoscliente['photo']=$request->file('photo')->store('uploads', 'public');
-        //     // $request->file('photo')->storeAs('public/uploads', $datoscliente['photo']);
-        // }
+        if($request->hasFile('foto')){
+            $artista=Artista::findOrFail($id);
+            Storage::delete('public/'.$artista->foto);
+            $atosartist['foto']=$request->file('foto')->store('uploads', 'public');
+            $request->file('foto')->storeAs('public/uploads', $datosartista['foto']);
+        }
 
         Artista::where('id','=',$id)->update($datosartista);
         return redirect('artista')->with('msn','Artista actualizado exitosamente');
@@ -128,16 +129,16 @@ class ArtistaController extends Controller
      * @param  \App\Models\Artista  $artista
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id){
+         public function destroy($id){
 
-        Artista::destroy($id);
+       
         
 
-        // $album=Album::findOrFail($id);
+        $artista=Artista::findOrFail($id);
 
-        // if(Storage::delete('public/'.$album->photo)){
-        //     Album::destroy($id);
-        // }
-        return redirect('artista')->with('msn','Alrtista eliminado exitosamente');
+        if(Storage::delete('public/'.$artista->foto)){
+            Artista::destroy($id);
+        }
+        return redirect('artista')->with('msn','Artista eliminado exitosamente');
     }
 }
