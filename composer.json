@@ -1,0 +1,15 @@
+{
+    "name": "asus/disquera",
+    "description": "Proyecto laravel",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "laortizt",
+            "email": "70719056+laortizt@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "dompdf/dompdf": "^1.0"
+    }
+}
