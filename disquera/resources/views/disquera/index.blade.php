@@ -6,7 +6,6 @@
     <h3>Listado de disqueras registradas</h3>
 
    
-
     @if(Session::has('msn'))
 
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -32,7 +31,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($disquera as $a)
+            @foreach($disqueras as $a)
             <tr>
                 <th scope="row">{{$a->id}}</th>
                 <!-- <td><img src="{{asset('storage').'/'.$a->photo}}" width="80px"class="img-fluid rounded-circle border border-5 border-light"></td> -->

@@ -23,14 +23,13 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <!-- <th scope="col">Foto</th> -->
                 <th scope="col">Nombre</th>
                 <th scope="col">Estado</th>
                 
             </tr>
         </thead>
         <tbody>
-            @foreach($disquera as $a)
+            @foreach($generos as $a)
             <tr>
                 <th scope="row">{{$a->id}}</th>
                 <!-- <td><img src="{{asset('storage').'/'.$a->photo}}" width="80px"class="img-fluid rounded-circle border border-5 border-light"></td> -->

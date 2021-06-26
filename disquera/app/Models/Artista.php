@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Artista extends Model
 {
-    use HasFactory;
+    
 }

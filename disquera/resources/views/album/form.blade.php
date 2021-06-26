@@ -12,9 +12,8 @@
         
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio 
     </div>
-
 </div>
 
 <div class="mb-3">
@@ -31,26 +30,51 @@
     <div class="invalid-feedback">
        *El campo es obligatorio
     </div>
-
 </div>
-<label for="idartistaFK" class="form-label">Artista</label>
-    <input type="text" name="idartistaFK" id="idartistaFK" class="form-control" value="{{isset($album->idartistaFK)?$album->idartistaFK:old('idartistaFK')}}"aria-describedby="idartistahelp" required >
 
-    @error('idartista')
-        <small id="idartistahelp" class="form-text text-muted">
+<div class="mb-3">
+    <label for="idartistaFK" class="form-label">Seleccione el artista</label>
+    <!-- <input type="text" name="idartistaFK" id="idartistaFK" class="form-control" value="{{isset($album->idartistaFK)?$album->idartistaFK:old('idartistaFK')}}"aria-describedby="idartistahelp" required > -->
+    <select class="form-select" aria-label="Default select example" name='idartistaFK' id="idartistaFK"
+        value = "{{isset($album->idartistaFK)? $album->idartistaFK : old('idartistaFK')}}"
+        aria-describedby="idartistaFKhelp"  required>
+        <option selected>Selecione una opción</option>
+
+        @foreach($artistas as $a)
+        <option value="{{$a->id}}">{{$a->nombre}} {{$a->apellido}}"</option>
+        @endforeach
+    
+    </select>
+
+
+    @error('idartistaFK')
+        <small id="idartistaFKhelp" class="form-text text-muted">
             *{{$message}}
         </small>
     @enderror
     <div class="valid-feedback">
-        
+       
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio
     </div>
+</div>
 
 <div class="mb-3">
-    <label for="idgeneroFK" class="form-label">Género</label>
-    <input type="text" name="idgeneroFK" id="idgeneroFK" class="form-control" value="{{isset($album->idgeneroFK)?$album->idgeneroFK:old('idgeneroFK')}}"aria-describedby="idgenerohelp" required minlength="5" >
+    <label for="idgeneroFK" class="form-label">Seleccione el Género</label>
+    <!-- <input type="text" name="idgeneroFK" id="idgeneroFK" class="form-control" value="{{isset($album->idgeneroFK)?$album->idgeneroFK:old('idgeneroFK')}}"aria-describedby="idgenerohelp" required minlength="5" > -->
+    <select class="form-select" aria-label="Default select example" name='idgeneroFK' id="idgeneroFK"
+        value = "{{isset($album->idgeneroFK)? $album->idgeneroFK : old('idgeneroFK')}}"
+        aria-describedby="idgeneroFK"  required>
+        <option selected>Selecione una opción</option>
+
+        @foreach($generos as $a)
+        <option value="{{$a->id}}">{{$a->nombre}}"</option>
+        @endforeach
+    
+    </select>
+    
+    
     @error('idgenero')
         <small id="idgenerohelp" class="form-text text-muted">
             *{{$message}}
@@ -60,7 +84,7 @@
        
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio seleccione una opción
     </div>
 </div>
 <div class="mb-3">
@@ -75,7 +99,7 @@
        
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio seleccione una opción
     </div>
 </div>
 
@@ -90,12 +114,9 @@
     
 </div> 
 
-
-
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <input type="submit" value="Guardar" class="btn btn-primary">
 </div>
-
 
 <script>
 // Example starter JavaScript for disabling form submissions if there are invalid fields

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Artista;
+use App\Models\Disquera;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +16,7 @@ class ArtistaController extends Controller
      */
     public function index()
     {
-        $registros['artista']=Artista::paginate(20);
+        $registros['artistas']=Artista::paginate(20);
         return view('artista.index', $registros);
     }
 
@@ -26,7 +27,9 @@ class ArtistaController extends Controller
      */
     public function create()
     {
-        return view('artista.create');
+        $disqueras=Disquera::all();
+
+        return view('artista.create',compact('disqueras'));
     }
 
     /**
@@ -42,23 +45,23 @@ class ArtistaController extends Controller
             'apellido'=>'required|string|min:5|max:50',
             'documento'=>'required|string|min:5|max:50',
             'email'=>'required',
-            'fechaNacimiento'=>'required',
-            'iddisquera'=>'required',
-            'nombreArtistico'=>'required',
+            'fechaNacimiento'=>'required|date',
+            'iddisqueraFK'=>'required',
+            'nombreaArtistico'=>'required',
             'tipoDocumento'=>'required',
             'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
-          
         ];
         $this->validate($request, $campos);
 
         $datosartista=request()->except('_token');
 
-        
         if($request->hasFile('foto')){
             $datosartista['foto']=$request->file('foto')->store('uploads', 'public');
+          
         }
+
         Artista::insert($datosartista);
-        return response()->json($datosartista);
+
         return redirect('artista')->with('msn','Artista registrado exitosamente');
     }
 
@@ -99,24 +102,25 @@ class ArtistaController extends Controller
             'apellido'=>'required|string|min:5|max:50',
             'documento'=>'required|string|min:5|max:50',
             'email'=>'required',
-            'fechaNacimiento'=>'required',
-            'iddisquera'=>'required',
-            'nombreArtistico'=>'required',
+            'fechaNacimiento'=>'required|date',
+            'iddisqueraFK'=>'required',
+            'nombreaArtistico'=>'required',
             'tipoDocumento'=>'required',
             'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
-         if($request->hasFile('foto')){
-            $campos=['photo'=>'required|string|max:500|mimes:jpg, jpeg,png',];
-         }
-         $this->validate($request, $campos);
+
+        if($request->hasFile('foto')){
+            $campos=['foto'=>'required|string|max:500|mimes:jpg, jpeg,png',];
+        }
+        $this->validate($request, $campos);
 
         $datosartista=request()->except('_token','_method');
 
         if($request->hasFile('foto')){
             $artista=Artista::findOrFail($id);
             Storage::delete('public/'.$artista->foto);
-            $atosartist['foto']=$request->file('foto')->store('uploads', 'public');
-            $request->file('foto')->storeAs('public/uploads', $datosartista['foto']);
+            $datosartista['foto']=$request->file('foto')->store('uploads', 'public');
+        //     $request->file('foto')->storeAs('public/uploads', $datosartista['foto']);
         }
 
         Artista::where('id','=',$id)->update($datosartista);
@@ -129,11 +133,7 @@ class ArtistaController extends Controller
      * @param  \App\Models\Artista  $artista
      * @return \Illuminate\Http\Response
      */
-         public function destroy($id){
-
-       
-        
-
+    public function destroy($id){
         $artista=Artista::findOrFail($id);
 
         if(Storage::delete('public/'.$artista->foto)){

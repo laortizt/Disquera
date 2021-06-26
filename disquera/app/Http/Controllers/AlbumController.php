@@ -3,8 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Album;
+use App\Models\Artista;
+use App\Models\Genero;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+
 
 class AlbumController extends Controller
 {
@@ -26,7 +30,11 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        return view('album.create');return view('album.create');
+        
+        $artistas=Artista::all();
+        $generos=Genero::all();
+        $data=array("artistas" => $artistas, "generos" => $generos);
+        return response()->view('album.create', $data, 200);
     }
 
     /**
@@ -40,8 +48,8 @@ class AlbumController extends Controller
         $campos=[
             'nombre'=>'required|string|min:5|max:50',
             'anioPublicacion'=>'required|year',
-            'idartista'=>'required',
-            'idgenero'=>'required',
+            'idartistaFK'=>'required',
+            'idgeneroFK'=>'required',
             'estado'=>'required',
 
             // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
@@ -94,8 +102,8 @@ class AlbumController extends Controller
         $campos=[
             'nombre'=>'required|string|min:5|max:50',
             'anioPublicacion'=>'required|year',
-            'idartista'=>'required',
-            'idgenero'=>'required',
+            'idartistaFK'=>'required',
+            'idgeneroFK'=>'required',
             'estado'=>'required',
             // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];

@@ -7,5 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Disquera extends Model
 {
-    use HasFactory;
+    
 }

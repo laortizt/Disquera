@@ -85,11 +85,20 @@
     </div>
 
 </div>
-<label for="iddisqueraFK" class="form-label">Disquera</label>
-    <input type="text" name="iddisqueraFK" id="iddisqueraFK" class="form-control" value="{{isset($artista->iddisqueraFK)?$artista->iddisqueraFK:old('idartista')}}"aria-describedby="iddisquerahelp" required >
+<label for="iddisqueraFK" class="form-label">Seleccione la Disquera</label>
+    <!-- <input type="text" name="iddisqueraFK" id="iddisqueraFK" class="form-control" value="{{isset($artista->iddisqueraFK)?$artista->iddisqueraFK:old('idartista')}}"aria-describedby="iddisquerahelp" required > -->
+    <select class="form-select" aria-label="Default select example" name='iddisqueraFK' id="iddisqueraFK"
+        value = "{{isset($artista->iddisqueraFK)? $a->iddisqueraFK : old('iddisqueraFK')}}"
+        aria-describedby="iddisqueraFKhelp" required>
+        <option selected>Selecione una opción</option>
 
-    @error('idartista')
-        <small id="iddisquerahelp" class="form-text text-muted">
+        @foreach($disqueras as $d)
+        <option value="{{$d->id}}">{{$d->nombre}}</option>
+        @endforeach
+    </select>
+
+    @error('idartistaFK')
+        <small id="iddisqueraFKhelp" class="form-text text-muted">
             *{{$message}}
         </small>
     @enderror
@@ -101,11 +110,11 @@
     </div>
 
     <div class="mb-3">
-    <label for="nombreArtistico" class="form-label">Nombre artístico</label>
-    <input type="text" name="nombreArtistico" id="nombreArtistico" class="form-control" value="{{isset($artista->nombreArtistico)?$artista->nombreArtisticoe:old('nombreArtistico')}}"aria-describedby="nombreArtisticoehelp" required alpha  minlength="5">
+    <label for="nombreaArtistico" class="form-label">Nombre artístico</label>
+    <input type="text" name="nombreaArtistico" id="nombreaArtistico" class="form-control" value="{{isset($artista->nombreaArtistico)?$artista->nombreaArtistico:old('nombreaArtistico')}}" aria-describedby="nombreaArtisticohelp" required alpha  minlength="5">
 
-    @error('nombreArtistico')
-        <small id="nombreArtisticohelp" class="form-text text-muted">
+    @error('nombreaArtistico')
+        <small id="nombreaArtisticohelp" class="form-text text-muted">
             *{{$message}}
         </small>
     @enderror
@@ -115,7 +124,6 @@
     <div class="invalid-feedback">
        *El campo es obligatorio minimo 5 letras
     </div>
-
 </div>
 
 <div class="mb-3">
@@ -146,12 +154,7 @@
     
 </div>
 
-<!-- <div class="mb-3">
-    <label for="accept_terms" class="form-check-label">Aceptar téminos y condiciones</label>
-    <div class="form-check">
-        <input class="form-check-input" type="checkbox" value="" id="accept_terms" name="accept_terms">
-    </div>
-</div> -->
+
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <input type="submit" value="Guardar" class="btn btn-primary">

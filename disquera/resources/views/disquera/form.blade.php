@@ -1,6 +1,6 @@
 <div class="mb-3">
     <label for="nombre" class="form-label">Nombre</label>
-    <input type="text" name="nombre" id="nombre" class="form-control" value="{{isset($cancion->nombre)?$cancion->nombre:old('nombre')}}"aria-describedby="nombrehelp" required alpha  minlength="5">
+    <input type="text" name="nombre" id="nombre" class="form-control" value="{{isset($disquera->nombre)?$disquera->nombre:old('nombre')}}"aria-describedby="nombrehelp" required alpha  minlength="5">
 
     @error('nombre')
         <small id="nombrehelp" class="form-text text-muted">
@@ -47,7 +47,7 @@
         
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio
     </div>
 </div>
 

@@ -1,6 +1,6 @@
 <div class="mb-3">
     <label for="nombre" class="form-label">Nombre</label>
-    <input type="text" name="nombre" id="nombre" class="form-control" value="{{isset($cancion->nombre)?$cancion->nombre:old('nombre')}}"aria-describedby="nombrehelp" required alpha  minlength="5">
+    <input type="text" name="nombre" id="nombre" class="form-control" value="{{isset($genero->nombre)?$genero->nombre:old('nombre')}}"aria-describedby="help" required  >
 
     @error('nombre')
         <small id="nombrehelp" class="form-text text-muted">

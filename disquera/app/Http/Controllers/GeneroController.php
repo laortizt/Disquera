@@ -14,7 +14,7 @@ class GeneroController extends Controller
      */
     public function index()
     {
-        $registros['genero']=Genero::paginate(20);
+        $registros['generos']=Genero::paginate(20);
         return view('genero.index', $registros);
     }
 
@@ -44,12 +44,8 @@ class GeneroController extends Controller
 
         $datosgenero=request()->except('_token');
 
-        // ver si la foto está llegando
-        // if($request->hasFile('photo')){
-        //     $datosgenero['photo']=$request->file('photo')->store('uploads', 'public');
-        // }
         Genero::insert($datosgenero);
-        // return response()->json($datoscliente);
+        
         return redirect('genero')->with('msn','Genero registrado exitosamente');
     }
 

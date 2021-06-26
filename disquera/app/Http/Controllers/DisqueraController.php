@@ -14,7 +14,7 @@ class DisqueraController extends Controller
      */
     public function index()
     {
-        $registros['disquera']=Disquera::paginate(20);
+        $registros['disqueras']=Disquera::paginate(20);
         return view('disquera.index', $registros);
     }
 
@@ -25,7 +25,7 @@ class DisqueraController extends Controller
      */
     public function create()
     {
-        return view('disquera.create');return view('disquera.create');
+        return view('disquera.create');
     }
 
     /**
@@ -38,11 +38,9 @@ class DisqueraController extends Controller
     {
         $campos=[
             'nombre'=>'required',
-            'dirección'=>'required',
-            'estado'=>'required|date',
+            'direccion'=>'required',
+            'estado'=>'required',
             'telefono'=>'required',
-            
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
         $this->validate($request, $campos);
 
@@ -53,8 +51,8 @@ class DisqueraController extends Controller
         //     $datosalbum['photo']=$request->file('photo')->store('uploads', 'public');
         // }
         Disquera::insert($datosdisquera);
-        // return response()->json($datoscliente);
-        return redirect('disquera')->with('msn','Disquera registrado exitosamente');
+       
+         return redirect('disquera')->with('msn','Disquera registrada exitosamente');
     }
 
     /**
@@ -63,7 +61,7 @@ class DisqueraController extends Controller
      * @param  \App\Models\Disquera  $disquera
      * @return \Illuminate\Http\Response
      */
-    public function show(Disquera $cancion)
+    public function show(Disquera $disquera)
     {
         //
     }
@@ -91,24 +89,14 @@ class DisqueraController extends Controller
     {
         $campos=[
             'nombre'=>'required',
-            'dirección'=>'required',
-            'estado'=>'required|date',
+            'direccion'=>'required',
+            'estado'=>'required',
             'telefono'=>'required',
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
-        //  if($request->hasFile('photo')){
-        //     $campos=['photo'=>'required|string|max:500|mimes:jpg, jpeg,png',];
-        //  }
-         $this->validate($request, $campos);
+
+        $this->validate($request, $campos);
 
         $datosdisquera=request()->except('_token','_method');
-
-        // if($request->hasFile('photo')){
-        //     $cliente=Cliente::findOrFail($id);
-        //     Storage::delete('public/'.$cliente->photo);
-        //     $datoscliente['photo']=$request->file('photo')->store('uploads', 'public');
-        //     // $request->file('photo')->storeAs('public/uploads', $datoscliente['photo']);
-        // }
 
         Disquera::where('id','=',$id)->update($datosdisquera);
         return redirect('disquera')->with('msn','Disquera actualizada exitosamente');
