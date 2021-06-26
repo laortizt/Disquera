@@ -46,13 +46,9 @@ class DisqueraController extends Controller
 
         $datosdisquera=request()->except('_token');
 
-        // ver si la foto está llegando
-        // if($request->hasFile('photo')){
-        //     $datosalbum['photo']=$request->file('photo')->store('uploads', 'public');
-        // }
         Disquera::insert($datosdisquera);
        
-         return redirect('disquera')->with('msn','Disquera registrada exitosamente');
+        return redirect('disquera')->with('msn','Disquera registrada exitosamente');
     }
 
     /**

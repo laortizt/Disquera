@@ -29,7 +29,7 @@
                 <th scope="col">Documento</th>
                 <th scope="col">Email</th>
                 <th scope="col">Año de nacimiento</th>
-                 <th scope="col">Disquera</th>
+                <th scope="col">Disquera</th>
                 <th scope="col">Nombre artístico</th>
                 <th scope="col">tipo de documento</th>
                 <th scope="col">Acciones</th>
@@ -45,7 +45,7 @@
                 <td>{{$a->documento}}</td>
                 <td>{{$a->email}}</td>
                 <td>{{$a->fechaNacimiento}}</td>
-                <td>{{$a->iddisqueraFK}}</td>
+                <td>{{$disqueras[$a->iddisqueraFK]->nombre}}</td>
                 <td>{{$a->tipoDocumento}}</td>
                <td>
                     <a class="btn btn-primary" href="{{url('/artista/'.$a->id.'/edit')}}" role="button">Editar</a>

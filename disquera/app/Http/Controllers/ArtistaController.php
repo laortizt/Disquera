@@ -17,6 +17,8 @@ class ArtistaController extends Controller
     public function index()
     {
         $registros['artistas']=Artista::paginate(20);
+        $registros['disqueras']=Disquera::all();
+
         return view('artista.index', $registros);
     }
 
@@ -29,7 +31,7 @@ class ArtistaController extends Controller
     {
         $disqueras=Disquera::all();
 
-        return view('artista.create',compact('disqueras'));
+        return view('artista.create', compact('disqueras'));
     }
 
     /**
@@ -41,27 +43,25 @@ class ArtistaController extends Controller
     public function store(Request $request)
     {
         $campos=[
-            'nombre'=>'required|string|min:5|max:50',
-            'apellido'=>'required|string|min:5|max:50',
-            'documento'=>'required|string|min:5|max:50',
+            'nombre'=>'required',
+            'apellido'=>'required',
+            'documento'=>'required',
             'email'=>'required',
-            'fechaNacimiento'=>'required|date',
+            'fechaNacimiento'=>'required',
             'iddisqueraFK'=>'required',
             'nombreaArtistico'=>'required',
             'tipoDocumento'=>'required',
             'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
-        $this->validate($request, $campos);
+        //$this->validate($request, $campos);
 
         $datosartista=request()->except('_token');
 
         if($request->hasFile('foto')){
             $datosartista['foto']=$request->file('foto')->store('uploads', 'public');
-          
         }
 
         Artista::insert($datosartista);
-
         return redirect('artista')->with('msn','Artista registrado exitosamente');
     }
 
@@ -84,8 +84,9 @@ class ArtistaController extends Controller
      */
     public function edit($id)
     {
-        $album=Artista::findOrFail($id);
-        return view('artista.edit',compact('artista'));
+        $artista=Artista::findOrFail($id);
+        $disqueras=Disquera::all();
+        return view('artista.edit',compact('artista', 'disqueras'));
     }
 
     /**
@@ -104,8 +105,8 @@ class ArtistaController extends Controller
             'email'=>'required',
             'fechaNacimiento'=>'required|date',
             'iddisqueraFK'=>'required',
-            'nombreaArtistico'=>'required',
-            'tipoDocumento'=>'required',
+            'nombreaArtistico'=>'required|string|min:5|max:50',
+            'tipoDocumento'=>'required|numeric|min:10|max:15',
             'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
 

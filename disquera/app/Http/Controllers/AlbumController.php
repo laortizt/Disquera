@@ -51,8 +51,6 @@ class AlbumController extends Controller
             'idartistaFK'=>'required',
             'idgeneroFK'=>'required',
             'estado'=>'required',
-
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
         $this->validate($request, $campos);
 

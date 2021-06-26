@@ -15,7 +15,6 @@
     <div class="invalid-feedback">
        *El campo es obligatorio minimo 5 letras
     </div>
-
 </div>
 
 <div class="mb-3">
@@ -37,7 +36,7 @@
 </div>
 <div class="mb-3">
     <label for="documento" class="form-label">Documento</label>
-    <input type="text" name="documento" id="documento" class="form-control" value="{{isset($artista->documento)?$artista->documento:old('documento')}}"aria-describedby="documentohelp" required alpha  minlength="5">
+    <input type="text" name="documento" id="documento" class="form-control" value="{{isset($artista->documento)? $artista->documento : old('documento')}}"aria-describedby="documentohelp" required alpha  minlength="5">
 
     @error('documento')
         <small id="documentohelp" class="form-text text-muted">
@@ -85,10 +84,11 @@
     </div>
 
 </div>
+
 <label for="iddisqueraFK" class="form-label">Seleccione la Disquera</label>
     <!-- <input type="text" name="iddisqueraFK" id="iddisqueraFK" class="form-control" value="{{isset($artista->iddisqueraFK)?$artista->iddisqueraFK:old('idartista')}}"aria-describedby="iddisquerahelp" required > -->
     <select class="form-select" aria-label="Default select example" name='iddisqueraFK' id="iddisqueraFK"
-        value = "{{isset($artista->iddisqueraFK)? $a->iddisqueraFK : old('iddisqueraFK')}}"
+        value = "{{isset($artista->iddisqueraFK)? $artista->iddisqueraFK : old('iddisqueraFK')}}"
         aria-describedby="iddisqueraFKhelp" required>
         <option selected>Selecione una opción</option>
 
@@ -109,6 +109,8 @@
        *El campo es obligatorio minimo 5 letras
     </div>
 
+
+
     <div class="mb-3">
     <label for="nombreaArtistico" class="form-label">Nombre artístico</label>
     <input type="text" name="nombreaArtistico" id="nombreaArtistico" class="form-control" value="{{isset($artista->nombreaArtistico)?$artista->nombreaArtistico:old('nombreaArtistico')}}" aria-describedby="nombreaArtisticohelp" required alpha  minlength="5">
@@ -128,7 +130,7 @@
 
 <div class="mb-3">
     <label for="tipoDocumento" class="form-label">tipo de documento</label>
-    <input type="text" name="tipoDocumento" id="tipoDocumento" class="form-control" value="{{isset($artista->tipoDocumento)?$artista->tipoDocumento:old('tipoDocumento')}}"aria-describedby="tipoDocumentohelp" required minlength="5" >
+    <input type="text" name="tipoDocumento" id="tipoDocumento" class="form-control" value="{{isset($artista->tipoDocumento)?$artista->tipoDocumento:old('tipoDocumento')}}"aria-describedby="tipoDocumentohelp" required numeric minlength="10" >
     @error('tipoDocumento')
         <small id="tipoDocumentohelp" class="form-text text-muted">
             *{{$message}}
@@ -138,7 +140,7 @@
        
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio
     </div>
 </div>
 

@@ -20,7 +20,7 @@
 
 <div class="mb-3">
     <label for="estado" class="form-label">Estado</label>
-    <input type="text" name="estado" id="estado" class="form-control" value="{{isset($genero->estado)?$genero->estado:old('estado')}}"aria-describedby="nombrehelp" required >
+    <input type="text" name="estado" id="estado" class="form-control" value="{{isset($genero->estado)?$genero->estado:old('estado')}}"aria-describedby="estadohelp" required >
 
     @error('estado')
         <small id="estadohelp" class="form-text text-muted">
