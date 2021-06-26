@@ -121,7 +121,7 @@ class ArtistaController extends Controller
             $artista=Artista::findOrFail($id);
             Storage::delete('public/'.$artista->foto);
             $datosartista['foto']=$request->file('foto')->store('uploads', 'public');
-        //     $request->file('foto')->storeAs('public/uploads', $datosartista['foto']);
+            $request->file('foto')->storeAs('public/uploads', $datosartista['foto']);
         }
 
         Artista::where('id','=',$id)->update($datosartista);
@@ -135,11 +135,13 @@ class ArtistaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        $artista=Artista::findOrFail($id);
+        Artista::destroy($id);
 
-        if(Storage::delete('public/'.$artista->foto)){
-            Artista::destroy($id);
-        }
+        // $artista=Artista::findOrFail($id);
+
+        // if(Storage::delete('public/'.$artista->foto)){
+        //     Artista::destroy($id);
+        // }
         return redirect('artista')->with('msn','Artista eliminado exitosamente');
     }
 }

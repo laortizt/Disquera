@@ -23,7 +23,7 @@
         <thead>
             <tr>
                 <th scope="col">Id</th>
-                <!-- <th scope="col">Foto</th> -->
+                <th scope="col">Foto</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Año publicación</th>
                  <th scope="col">Artista</th>
@@ -36,11 +36,11 @@
             @foreach($albums as $a)
             <tr>
                 <th scope="row">{{$a->id}}</th>
-                <td><img src="{{asset('storage').'/'.$a->photo}}" width="80px"class="img-fluid rounded-circle border border-5 border-light"></td>
+                <td><img src="{{asset('storage').'/'.$a->foto}}" width="80px"class="img-fluid rounded-circle border border-5 border-light"></td>
                 <td>{{$a->nombre}}</td>
                 <td>{{$a->anioPublicacion}}</td>
-                <td>{{$a->idartista}}</td>
-                <td>{{$a->idgenero}}</td>
+                <td>{{$artistas->find($a->idartistaFK)->nombre}}</td>
+                <td>{{$generos->find($a->idgeneroFK)->nombre}}</td>
                 <td>{{$a->estado}}</td>
                 <td>
                     <a class="btn btn-primary" href="{{url('/album/'.$a->id.'/edit')}}" role="button">Editar</a>

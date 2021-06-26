@@ -41,9 +41,8 @@
         <option selected>Selecione una opción</option>
 
         @foreach($artistas as $a)
-        <option value="{{$a->id}}">{{$a->nombre}} {{$a->apellido}}"</option>
+            <option value="{{$a->id}}">{{$a->nombre}} {{$a->apellido}}</option>
         @endforeach
-    
     </select>
 
 
@@ -65,13 +64,12 @@
     <!-- <input type="text" name="idgeneroFK" id="idgeneroFK" class="form-control" value="{{isset($album->idgeneroFK)?$album->idgeneroFK:old('idgeneroFK')}}"aria-describedby="idgenerohelp" required minlength="5" > -->
     <select class="form-select" aria-label="Default select example" name='idgeneroFK' id="idgeneroFK"
         value = "{{isset($album->idgeneroFK)? $album->idgeneroFK : old('idgeneroFK')}}"
-        aria-describedby="idgeneroFK"  required>
+        aria-describedby="idgeneroFK" required>
         <option selected>Selecione una opción</option>
 
         @foreach($generos as $a)
-        <option value="{{$a->id}}">{{$a->nombre}}"</option>
+            <option value="{{$a->id}}">{{$a->nombre}}</option>
         @endforeach
-    
     </select>
     
     

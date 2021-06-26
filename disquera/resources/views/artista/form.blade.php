@@ -97,7 +97,7 @@
         @endforeach
     </select>
 
-    @error('idartistaFK')
+    @error('iddisqueraFK')
         <small id="iddisqueraFKhelp" class="form-text text-muted">
             *{{$message}}
         </small>

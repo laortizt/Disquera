@@ -20,6 +20,9 @@ class AlbumController extends Controller
     public function index()
     {
         $registros['albums']=Album::paginate(20);
+        $registros['artistas']=Artista::all();
+        $registros['generos']=Genero::all();
+
         return view('album.index', $registros);
     }
 
@@ -30,11 +33,11 @@ class AlbumController extends Controller
      */
     public function create()
     {
-        
+        $albums=Album::all();
         $artistas=Artista::all();
         $generos=Genero::all();
-        $data=array("artistas" => $artistas, "generos" => $generos);
-        return response()->view('album.create', $data, 200);
+
+        return view('album.create', compact('artistas', 'generos'));
     }
 
     /**
@@ -51,17 +54,18 @@ class AlbumController extends Controller
             'idartistaFK'=>'required',
             'idgeneroFK'=>'required',
             'estado'=>'required',
+            'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
-        $this->validate($request, $campos);
+        // $this->validate($request, $campos);
 
         $datosalbum=request()->except('_token');
 
-        // ver si la foto está llegando
-        // if($request->hasFile('photo')){
-        //     $datosalbum['photo']=$request->file('photo')->store('uploads', 'public');
-        // }
+        //ver si la foto está llegando
+        if($request->hasFile('foto')) {
+            $datosalbum['foto']=$request->file('foto')->store('uploads', 'public');
+        }
+
         Album::insert($datosalbum);
-        // return response()->json($datoscliente);
         return redirect('album')->with('msn','Album registrado exitosamente');
     }
 
@@ -85,7 +89,10 @@ class AlbumController extends Controller
     public function edit($id)
     {
         $album=Album::findOrFail($id);
-        return view('album.edit',compact('album'));
+        $artistas=Artista::all();
+        $generos=Genero::all();
+
+        return view('album.edit',compact('album', 'artistas', 'generos'));
     }
 
     /**
@@ -103,21 +110,21 @@ class AlbumController extends Controller
             'idartistaFK'=>'required',
             'idgeneroFK'=>'required',
             'estado'=>'required',
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
+            'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
-        //  if($request->hasFile('photo')){
-        //     $campos=['photo'=>'required|string|max:500|mimes:jpg, jpeg,png',];
-        //  }
-         $this->validate($request, $campos);
+         if($request->hasFile('foto')){
+            $campos=['foto'=>'required|string|max:500|mimes:jpg, jpeg,png',];
+         }
+        $this->validate($request, $campos);
 
         $datosalbum=request()->except('_token','_method');
 
-        // if($request->hasFile('photo')){
-        //     $cliente=Cliente::findOrFail($id);
-        //     Storage::delete('public/'.$cliente->photo);
-        //     $datoscliente['photo']=$request->file('photo')->store('uploads', 'public');
-        //     // $request->file('photo')->storeAs('public/uploads', $datoscliente['photo']);
-        // }
+        if($request->hasFile('foto')){
+            $artista=Artista::findOrFail($id);
+            Storage::delete('public/'.$artista->foto);
+            $datosartista['foto']=$request->file('foto')->store('uploads', 'public');
+            $request->file('foto')->storeAs('public/uploads', $datosartista['foto']);
+        }
 
         Album::where('id','=',$id)->update($datosalbum);
         return redirect('album')->with('msn','Album actualizado exitosamente');
