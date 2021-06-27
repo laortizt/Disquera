@@ -6,7 +6,7 @@
     <h1>Editar información del artista</h1>
 
     <div class="card" style="width: 15rem; margin: 20px auto;">
-        <img src="..." class="card-img-top" alt="...">
+        <!-- <img src="..." class="card-img-top" alt="..."> -->
         <div class="card-body">
             <form action="{{url('/artista/'.$artista->id)}}" method="post" enctype="multipart/form-data" novalidate class="needs-validation">
                 <!-- se incluye la vista del formulario  -->

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cancion;
+use App\Models\Album;
 use Illuminate\Http\Request;
 
 class CancionController extends Controller
@@ -14,7 +15,8 @@ class CancionController extends Controller
      */
     public function index()
     {
-        $registros['cancion']=Cancion::paginate(20);
+        $registros['cancions']=Cancion::paginate(20);
+        $registros['albums']=Album::all();
         return view('cancion.index', $registros);
     }
 
@@ -25,7 +27,9 @@ class CancionController extends Controller
      */
     public function create()
     {
-        return view('cancion.create');return view('cancion.create');
+        $albums=Album::all();
+        $cancions=Cancion::all();
+        return view('cancion.create', compact('albums', 'cancions'));
     }
 
     /**
@@ -41,25 +45,15 @@ class CancionController extends Controller
             'duracion'=>'required',
             'fechaGrabacion'=>'required|date',
             'idAlbum'=>'required',
-            'idgenero'=>'required', 'nombre'=>'required',
-            'duracion'=>'required',
-            'fechaGrabacion'=>'required|date',
-            'idAlbum'=>'required',
-            'idgenero'=>'required',
-            
-            // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
+            'estado'=>'required',
         ];
-        $this->validate($request, $campos);
+        // $this->validate($request, $campos);
 
         $datoscancion=request()->except('_token');
 
-        // ver si la foto está llegando
-        // if($request->hasFile('photo')){
-        //     $datosalbum['photo']=$request->file('photo')->store('uploads', 'public');
-        // }
         Cancion::insert($datoscancion);
         // return response()->json($datoscliente);
-        return redirect('cancion')->with('msn','Canción registrado exitosamente');
+        return redirect('cancion')->with('msn','Canción registrada exitosamente');
     }
 
     /**
@@ -82,7 +76,8 @@ class CancionController extends Controller
     public function edit($id)
     {
         $cancion=Cancion::findOrFail($id);
-        return view('cancion.edit',compact('cancion'));
+        $albums=Album::all();
+        return view('cancion.edit',compact('cancion', 'albums'));
     }
 
     /**
@@ -99,7 +94,7 @@ class CancionController extends Controller
             'duracion'=>'required',
             'fechaGrabacion'=>'required|date',
             'idAlbum'=>'required',
-            'idgenero'=>'required',
+            'estado'=>'required',
             // 'foto'=>'required|string|max:500|mimes:jpg,jpeg,png',
         ];
         //  if($request->hasFile('photo')){

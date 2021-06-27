@@ -46,6 +46,7 @@
                 <td>{{$a->email}}</td>
                 <td>{{$a->fechaNacimiento}}</td>
                 <td>{{$disqueras->find($a->iddisqueraFK)->nombre}}</td>
+                <td>{{$a->nombreaArtistico}}</td>
                 <td>{{$a->tipoDocumento}}</td>
                <td>
                     <a class="btn btn-primary" href="{{url('/artista/'.$a->id.'/edit')}}" role="button">Editar</a>

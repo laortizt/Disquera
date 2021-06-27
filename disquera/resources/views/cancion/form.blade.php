@@ -19,7 +19,7 @@
 
 <div class="mb-3">
     <label for="duracion" class="form-label">Duración</label>
-    <input type="text" name="duracion" id="duracion" class="form-control" value="{{isset($cancion->duracion)?$cancion->duracion:old('duracion')}}"aria-describedby="duracionhelp" required alpha  minlength="5">
+    <input type="text" name="duracion" id="duracion" class="form-control" value="{{isset($cancion->duracion)?$cancion->duracion:old('duracion')}}"aria-describedby="duracionhelp" required >
 
     @error('nombre')
         <small id="duracionhelp" class="form-text text-muted">
@@ -30,7 +30,7 @@
         
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio 
     </div>
 </div>
 
@@ -53,9 +53,20 @@
 
 
 <div class="mb-3">
-    <label for="idAlbumFK" class="form-label">Album</label>
-    <input type="text" name="idAlbumFK" id="idAlbumFK" class="form-control" value="{{isset($cancion->idAlbumFK)?$cancion->idAlbumFK:old('idAlbum')}}"aria-describedby="idAlbumhelp" required >
-    @error('idAlbum')
+    <label for="idAlbumFK" class="form-label">Seleccione el album</label>
+    <!-- <input type="text" name="idAlbumFK" id="idAlbumFK" class="form-control" value="{{isset($cancion->idAlbumFK)?$cancion->idAlbumFK:old('idAlbum')}}"aria-describedby="idAlbumhelp" required > -->
+    <select class="form-select" aria-label="Default select example" name='idalbumFK' id="idalbumFK"
+        value = "{{isset($cancion->idalbumFK)? $cancion->idalbumFK : old('idalbumFK')}}"
+        aria-describedby="idartistaFKhelp"  required>
+        <option selected>Selecione una opción</option>
+
+        @foreach($albums as $a)
+            <option value="{{$a->id}}">{{$a->nombre}} {{$a->apellido}}</option>
+        @endforeach
+    </select>
+
+    
+    @error('idAlbumFK')
         <small id="idAlbumhelp" class="form-text text-muted">
             *{{$message}}
         </small>
@@ -68,24 +79,25 @@
     </div>
 </div>
 
-
-
 <div class="mb-3">
     <label for="estado" class="form-label">Estado</label>
-    <input type="text" name="estado" id="estado" class="form-control" value="{{isset($cancion->estado)?$cancion->estado:old('cancion')}}"aria-describedby="$estadohelp" required>
-
-    @error('$estado')
-        <small id="$estadohelp" class="form-text text-muted">
+    <input type="text" name="estado" id="estado" class="form-control" value="{{isset($cancion->estado)?$cancion->estado:old('estado')}} "aria-describedby="estadohelp" required >
+    @error('estado')
+        <small id="estadohelp" class="form-text text-muted">
             *{{$message}}
         </small>
     @enderror
     <div class="valid-feedback">
-        
+       
     </div>
     <div class="invalid-feedback">
-       *El campo es obligatorio minimo 5 letras
+       *El campo es obligatorio
     </div>
+
 </div>
+
+
+
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <input type="submit" value="Guardar" class="btn btn-primary">
